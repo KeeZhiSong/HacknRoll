@@ -2,6 +2,8 @@ const cards = document.querySelectorAll(".card");
 let matched = 0;
 let cardOne, cardTwo;
 let disableDeck = false;
+const winMessage = document.getElementById("win-message");
+
 function flipCard({target: clickedCard}) {
     if(cardOne !== clickedCard && !disableDeck) {
         clickedCard.classList.add("flip");
@@ -19,9 +21,10 @@ function matchCards(img1, img2) {
     if(img1 === img2) {
         matched++;
         if(matched == 8) {
-            setTimeout(() => {
-                return shuffleCard();
-            }, 1000);
+           setTimeout(() => {
+                winMessage.classList.remove("hidden"); // Show the win message
+                winMessage.style.display = "block";
+            }, 500);
         }
         cardOne.removeEventListener("click", flipCard);
         cardTwo.removeEventListener("click", flipCard);
