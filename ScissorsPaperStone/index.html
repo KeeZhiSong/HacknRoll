@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        img {
+            width: 100px; /* Set the width of the images */
+            cursor: pointer; /* Change cursor to pointer on hover */
+            margin: 10px; /* Add some margin around the images */
+        }
+        #result {
+            font-size: 24px; /* Increase font size for the result */
+            margin-top: 20px; /* Add some space above the result */
+        }
+        #winCounter {
+            font-size: 20px; /* Font size for the win counter */
+            margin-top: 10px; /* Space above the win counter */
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors Game</h1>
+    <img src="/Users/limzh/cs/hacknroll/—Pngtree—colored rock clip art_5830716.png" alt="Rock" onclick="play('rock')">
+    <img src="/Users/limzh/cs/hacknroll/878063.png" alt="Paper" onclick="play('paper')">
+    <img src="/Users/limzh/cs/hacknroll/—Pngtree—cartoon scissors blue_3853956.png" alt="Scissors" onclick="play('scissors')">
+    <h2 id="result"></h2>
+    <h3 id="winCounter">Wins: 0</h3>
+
+    <script>
+        let consecutiveWins = 0; // Counter for consecutive wins
+
+        function play(playerChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+            let result;
+
+            if (playerChoice === computerChoice) {
+                result = "It's a tie! Both chose " + playerChoice + ".";
+            } else if (
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock') ||
+                (playerChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = "You win! " + playerChoice + " beats " + computerChoice + ".";
+                consecutiveWins++; // Increment consecutive wins
+            } else {
+                result = "You lose! " + computerChoice + " beats " + playerChoice + ".";
+                consecutiveWins = 0; // Reset counter on loss
+            }
+
+            document.getElementById('result').innerText = result;
+            document.getElementById('winCounter').innerText = "Wins: " + consecutiveWins;
+
+            // Check if the user has won 3 times in a row
+            if (consecutiveWins === 3) {
+                document.getElementById('result').innerText = "You win the game! 🎉";
+                consecutiveWins = 0; // Reset counter after winning the game
+            }
+        }
+    </script>
+</body>
+</html>
