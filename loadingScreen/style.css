@@ -11,10 +11,9 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
-}
-
-
-.container {
+  }
+  
+  .container {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
@@ -22,8 +21,10 @@ body {
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
-}
-.loader {
+    z-index: 1;
+  }
+  
+  .loader {
     border: 5px solid rgba(255, 255, 255, 0.3);
     border-top: 5px solid #3498db;
     border-radius: 50%;
@@ -31,33 +32,35 @@ body {
     height: 50px;
     animation: spin 1s linear infinite;
     margin: 0 auto 20px;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-.progress-bar {
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .progress-bar {
     width: 300px;
     height: 10px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 5px;
     margin: 20px auto;
     overflow: hidden;
-}
-.progress {
+  }
+  
+  .progress {
     width: 0%;
     height: 100%;
     background-color: #3498db;
     transition: width 0.5s ease-out;
-}
-#progress-message {
-    margin-top: 10px;
-    color: white;
-    font-style: italic;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-#continue-btn {
-    position: absolute;
+  }
+  
+  #continue-btn {
+    position: fixed;
     padding: 10px 20px;
     background-color: rgba(76, 175, 80, 0.8);
     color: white;
@@ -67,71 +70,83 @@ body {
     transition: all 0.3s ease-out;
     display: none;
     backdrop-filter: blur(4px);
-}
-#continue-btn:hover {
+    z-index: 1000;
+  }
+  
+  #continue-btn:hover {
     background-color: rgba(69, 160, 73, 0.9);
-}
-#video-container {
+  }
+  
+  #video-container {
     margin-top: 20px;
-}
-video {
+  }
+  
+  video {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-h1, p {
+  }
+  
+  h1,
+  p {
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-#Clicker {
-    position: absolute; /* Position relative to its nearest positioned ancestor */
-    top: -25px; /* 100px from the top of the container or screen */
-    left: -20px; /* 50px from the left of the container or screen */
+  }
+  
+  .game {
+    position: fixed;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    z-index: 2;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  #Clicker {
+    top: -25px;
+    left: -20px;
+    transform: scale(0.5);
+  }
+  
+  #ScissorsPaperStone {
+    position: fixed;
+    top: 120px;
+    right: 0;
     transform: scale(0.5);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 10px;
     border-radius: 5px;
-}
-#ScissorsPaperStone {
-    position: absolute; /* Position relative to its nearest positioned ancestor */
-    top: 120px; /* 100px from the top of the container or screen */
-    left: 900px; /* 50px from the left of the container or screen */
-    transform: scale(0.5);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 5px;
-}
-#MemoryGame {
-    position: absolute; /* Position relative to its nearest positioned ancestor */
-    top: 350px; /* 100px from the top of the container or screen */
-    left: 875px; /* 50px from the left of the container or screen */
+    z-index: 2;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  #MemoryGame {
+    bottom: 0;
+    right: 25px;
     transform: scale(0.8);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 5px;
-}
-#TicTacToe {
-    position: absolute; /* Position relative to its nearest positioned ancestor */
-    top: 200px; /* 100px from the top of the container or screen */
-    left: 100px; /* 50px from the left of the container or screen */
+  }
+  
+  #TicTacToe {
+    bottom: 20px;
+    left: 100px;
     transform: scale(0.6);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 5px;
-}
-#flappybird {
-    position: absolute; /* Position relative to its nearest positioned ancestor */
-    top: -90px; /* 100px from the top of the container or screen */
-    left: 1100px; /* 50px from the left of the container or screen */
+  }
+  
+  #flappybird {
+    top: -90px;
+    right: 150px;
     transform: scale(0.6);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 5px;
-}
-
-
-
-
-
+  }
+  
+  #progress-message {
+    margin-top: 10px;
+    color: white;
+    font-style: italic;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  

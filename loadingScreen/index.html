@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading Page</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-      <div class="container">
+    <div class="container">
         <div class="loader"></div>
         <h1>Loading...</h1>
         <p>Please wait while we prepare your content.</p>
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
         </div>
-        <p id="progress-message">Starting...</p>
+        <div id="progress-message"></div>
         <div id="video-container">
             <video id="placeholder-video" width="320" height="180" autoplay muted loop style="max-width: 100%;">
                 <source src="videos/video1.mp4" type="video/mp4">
@@ -23,29 +24,35 @@
         </div>
     </div>
     <button id="continue-btn">Continue</button>
-
-     <section id="Clicker">
+    
+    <section id="Clicker" class="game hidden">
         <iframe src="../Clicker/index.html" width="400" height="400" frameborder="0"></iframe>
-     </section>
+    </section>
 
-     <section id="ScissorsPaperStone">
+    <section id="ScissorsPaperStone" class="game hidden">
         <iframe src="../ScissorsPaperStone/index.html" width="400" height="400" frameborder="0"></iframe>
-     </section>
+    </section>
 
-     <section id="MemoryGame">
+    <section id="MemoryGame" class="game hidden">
         <iframe src="../MemoryGame/index.html" width="400" height="400" frameborder="0"></iframe>
-     </section>
+    </section>
 
-     <section id="TicTacToe">
+    <section id="TicTacToe" class="game hidden">
         <iframe src="../TicTacToe/index.html" width="400" height="600" frameborder="0"></iframe>
-     </section>
-     <section id="flappybird">
-        <iframe src="../flappybird/index.html" width="500" height="800" frameborder="0"></iframe>
-     </section>
+    </section>
 
-     
- 
-   
+    <section id="flappybird" class="game hidden">
+        <iframe src="../flappybird/index.html" width="500" height="800" frameborder="0"></iframe>
+    </section>
+
+    <audio id="bgm" loop>
+        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Whispered%20Harmony-UYxAFn2ThwDVYIwgSSTawgk83f9YRr.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button id="music-toggle" style="position: fixed; bottom: 10px; left: 10px; z-index: 1000;">Toggle Music</button>
+
     <script src="script.js"></script>
 </body>
 </html>
+
