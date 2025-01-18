@@ -1,9 +1,45 @@
-body{
-    font-family: 'Courier New', Courier, monospace;
+body {
+    font-family: "Courier New", Courier, monospace;
     text-align: center;
-}
-
-#board{
-    /*background-color: skyblue;*/
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  #game-container {
+    position: relative;
+  }
+  
+  #board {
     background-image: url("./bg_night.png");
-}
+    display: block;
+  }
+  
+  #startButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #startButton:hover {
+    background-color: #45a049;
+  }
+  
+  #startButton:focus {
+    outline: none;
+  }
+  
+  
