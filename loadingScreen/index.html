@@ -55,12 +55,6 @@
             background-color: #3498db;
             transition: width 0.5s ease-out;
         }
-        #progress-message {
-            margin-top: 10px;
-            color: white;
-            font-style: italic;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
         #continue-btn {
             position: absolute;
             padding: 10px 20px;
@@ -99,7 +93,6 @@
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
         </div>
-        <p id="progress-message">Starting...</p>
         <div id="video-container">
             <video id="placeholder-video" width="320" height="180" autoplay muted loop style="max-width: 100%;">
                 <source src="videos/video1.mp4" type="video/mp4">
@@ -111,29 +104,26 @@
 
     <script>
         const progressBar = document.getElementById('progress');
-        const progressMessage = document.getElementById('progress-message');
         const continueBtn = document.getElementById('continue-btn');
         const video = document.getElementById('placeholder-video');
         let progress = 0;
 
-        const messages = [
-            "Taking Quackers out on a walk...",
-            "Optimizing rubber ducks...",
-            "Counting pixels...",
-            "Stealing hackathon food...",
-            "Playing geoguesser...",
-            "Preparing something amazing!",
-            "Ready to quack!"
-        ];
+        function changeVideo() {
+            currentVideoIndex = (currentVideoIndex + 1) % 2;
+            video.src = `videos/${videos[currentVideoIndex]}`;
+        }
+
+        setInterval(changeVideo, 40000);
+
+        continueBtn.addEventListener('click', () => {
+            changeVideo();
+            moveButton();
+        });
 
         function updateProgress() {
             progress += 0.5;
             if (progress > 100) progress = 0;
             progressBar.style.width = progress + '%';
-
-            // Update progress message every 20%
-            const messageIndex = Math.floor((progress / 20) % messages.length);
-            progressMessage.innerText = messages[messageIndex];
         }
 
         setInterval(updateProgress, 100);
@@ -147,12 +137,6 @@
 
         const videos = ['video1.mp4', 'video2.mp4'];
         let currentVideoIndex = 0;
-
-        continueBtn.addEventListener('click', () => {
-            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-            video.src = `videos/${videos[currentVideoIndex]}`;
-            moveButton();
-        });
 
         function moveButton() {
             const x = Math.random() * 80 + 10;
@@ -208,3 +192,4 @@
     </script>
 </body>
 </html>
+
