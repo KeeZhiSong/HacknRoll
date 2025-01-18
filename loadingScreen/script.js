@@ -167,71 +167,23 @@ window.addEventListener('load', () => {
 // Preload audio
 bgm.load();
 
-        document.addEventListener('mousemove', moveButtonDebounced);
+document.addEventListener('mousemove', moveButtonDebounced);
 
-        // Set the countdown time in seconds
-        let countdownTime = 180; // 3 minutes
+// Set the countdown time in seconds
+let countdownTime = 180; // 3 minutes
 
-        const countdownInterval = setInterval(() => {
-            // Calculate minutes and seconds
-            const minutes = Math.floor(countdownTime / 60);
-            const seconds = countdownTime % 60;
-
-            // Decrease the countdown time
-            countdownTime--;
-
-            // Check if the countdown has finished
-            if (countdownTime < 0) {
-                clearInterval(countdownInterval);
-                // Redirect to the specified URL
-                window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Change this to your desired URL
-            }
-        }, 1000);
-// No selected code provided, so I'll add a general improvement to the entire code file
-
-// Add a function to handle errors and display them to the user
-function handleError(error) {
-    console.error(error);
-    const errorMessage = document.getElementById('error-message');
-    if (errorMessage) {
-        errorMessage.innerText = error.message;
-        errorMessage.style.display = 'block';
-    }
-}
-
-// Add error handling to the audio playback
-bgm.addEventListener('error', handleError);
-
-// Add error handling to the confetti function
-function triggerConfetti() {
-    try {
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-    } catch (error) {
-        handleError(error);
-    }
-}
-
-// Add error handling to the countdown interval
 const countdownInterval = setInterval(() => {
-    try {
-        // Calculate minutes and seconds
-        const minutes = Math.floor(countdownTime / 60);
-        const seconds = countdownTime % 60;
+    // Calculate minutes and seconds
+    const minutes = Math.floor(countdownTime / 60);
+    const seconds = countdownTime % 60;
 
-        // Decrease the countdown time
-        countdownTime--;
+    // Decrease the countdown time
+    countdownTime--;
 
-        // Check if the countdown has finished
-        if (countdownTime < 0) {
-            clearInterval(countdownInterval);
-            // Redirect to the specified URL
-            window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Change this to your desired URL
-        }
-    } catch (error) {
-        handleError(error);
+    // Check if the countdown has finished
+    if (countdownTime < 0) {
+        clearInterval(countdownInterval);
+        // Redirect to the specified URL
+        window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Change this to your desired URL
     }
 }, 1000);
