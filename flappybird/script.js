@@ -66,6 +66,10 @@ window.onload = function() {
 
 function update() {
     requestAnimationFrame(update);
+    if(score == 10){
+        context.fillText("YOU WIN!", 6, 90);
+        return;
+    }
     if (gameOver) {
         return;
     }
@@ -145,7 +149,7 @@ function placePipes() {
 }
 
 function moveBird(e) {
-    if (e.code == "Space" || e.code == "ArrowUp" || e.code == "KeyX") {
+    if ((e.type === "mousedown" && e.button === 0) || (e.code == "Space" || e.code == "ArrowUp" || e.code == "KeyX" )) {
         //jump
         velocityY = -6;
 
@@ -165,3 +169,5 @@ function detectCollision(a, b) {
            a.y < b.y + b.height &&  //a's top left corner doesn't reach b's bottom left corner
            a.y + a.height > b.y;    //a's bottom left corner passes b's top left corner
 }
+
+window.addEventListener('mousedown', moveBird);
