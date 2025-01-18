@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to right, #e0f2fe, #e0e7ff);
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .progress-bar {
+            width: 300px;
+            height: 10px;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #3498db;
+            transition: width 0.5s ease-out;
+        }
+        #continue-btn {
+            position: absolute;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease-out;
+            display: none;
+        }
+        #continue-btn:hover {
+            background-color: #45a049;
+        }
+        #video-container {
+            margin-top: 20px;
+        }
+        video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loader"></div>
+        <h1>Loading...</h1>
+        <p>Please wait while we prepare your content.</p>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div id="video-container">
+            <video id="placeholder-video" width="320" height="180" autoplay muted loop style="max-width: 100%;">
+                <source src="videos/video1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    <button id="continue-btn">Continue</button>
+
+    <script>
+        const progressBar = document.getElementById('progress');
+        const continueBtn = document.getElementById('continue-btn');
+        const video = document.getElementById('placeholder-video');
+        let progress = 0;
+
+        function updateProgress() {
+            progress += 0.5;
+            if (progress > 100) progress = 0;
+            progressBar.style.width = progress + '%';
+        }
+
+        setInterval(updateProgress, 100);
+
+        setTimeout(() => {
+            continueBtn.style.display = 'block';
+            continueBtn.style.left = '50%';
+            continueBtn.style.top = 'calc(100% - 100px)';
+            continueBtn.style.transform = 'translateX(-50%)';
+        }, 19000);
+
+        const videos = ['video1.mp4', 'video2.mp4', 'video3.mp4'];
+        let currentVideoIndex = 0;
+
+        continueBtn.addEventListener('click', () => {
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            video.src = `videos/${videos[currentVideoIndex]}`;
+            moveButton();
+        });
+
+        function moveButton() {
+            const x = Math.random() * 80 + 10;
+            const y = Math.random() * 70 + 20;
+            continueBtn.style.left = x + '%';
+            continueBtn.style.top = y + '%';
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        let lastMousePosition = { x: 0, y: 0 };
+
+        const moveButtonDebounced = debounce((e) => {
+            if (continueBtn.style.display === 'block') {
+                const rect = continueBtn.getBoundingClientRect();
+                const buttonCenter = {
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2
+                };
+
+                // Only move if the mouse has moved significantly
+                if (Math.abs(e.clientX - lastMousePosition.x) > 5 || Math.abs(e.clientY - lastMousePosition.y) > 5) {
+                    const angle = Math.atan2(e.clientY - buttonCenter.y, e.clientX - buttonCenter.x);
+                    const distance = 300;
+                    let newX = buttonCenter.x - Math.cos(angle) * distance;
+                    let newY = buttonCenter.y - Math.sin(angle) * distance;
+
+                    const screenPadding = 20;
+                    const maxX = window.innerWidth - screenPadding;
+                    const maxY = window.innerHeight - screenPadding;
+
+                    newX = newX < screenPadding ? maxX : (newX > maxX ? screenPadding : newX);
+                    newY = newY < screenPadding ? maxY : (newY > maxY ? screenPadding : newY);
+
+                    continueBtn.style.left = newX + 'px';
+                    continueBtn.style.top = newY + 'px';
+
+                    lastMousePosition = { x: e.clientX, y: e.clientY };
+                }
+            }
+        }, 50); // Debounce for 50ms
+
+        document.addEventListener('mousemove', moveButtonDebounced);
+    </script>
+</body>
+</html>
+
