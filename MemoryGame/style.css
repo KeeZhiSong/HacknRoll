@@ -5,12 +5,22 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+#win-message {
+    font-size: 2rem;
+    color: #4CAF50;
+    margin-bottom: 20px;
+    display: none;
+}
+
+#win-message.hidden {
+    display: none;
+}
 body{
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #6563FF;
+  /* background: #6563FF; */
 }
 .wrapper{
   padding: 25px;

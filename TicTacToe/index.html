@@ -70,10 +70,10 @@
 
     function createBoard() {
         for (let i = 0; i < 9; i++) {
-            const cell = document.createElement('div');
+            const cell = document.createElement('div'); // Create new cell
             cell.classList.add('cell');
-            cell.setAttribute('data-cell-index', i);
-            cell.addEventListener('click', handleCellClick);
+            cell.setAttribute('data-cell-index', i); // Store cell index
+            cell.addEventListener('click', handleCellClick); // Add event listener to invoke handleCellClick
             board.appendChild(cell);
         }
     }
