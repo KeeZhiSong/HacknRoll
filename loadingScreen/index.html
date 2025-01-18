@@ -4,95 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/360_F_885994379_5kHw8aYvxSORQZsYtmFpIn20IguRMnEh.jpg-dYh5c8Uf5B3E7yxcuq3wNPnGwh8zRU.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            overflow: hidden;
-        }
-        .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .loader {
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #3498db;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .progress-bar {
-            width: 300px;
-            height: 10px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            margin: 20px auto;
-            overflow: hidden;
-        }
-        .progress {
-            width: 0%;
-            height: 100%;
-            background-color: #3498db;
-            transition: width 0.5s ease-out;
-        }
-        #progress-message {
-            margin-top: 10px;
-            color: white;
-            font-style: italic;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        #continue-btn {
-            position: absolute;
-            padding: 10px 20px;
-            background-color: rgba(76, 175, 80, 0.8);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease-out;
-            display: none;
-            backdrop-filter: blur(4px);
-        }
-        #continue-btn:hover {
-            background-color: rgba(69, 160, 73, 0.9);
-        }
-        #video-container {
-            margin-top: 20px;
-        }
-        video {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h1, p {
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+      <div class="container">
         <div class="loader"></div>
         <h1>Loading...</h1>
         <p>Please wait while we prepare your content.</p>
@@ -109,102 +24,28 @@
     </div>
     <button id="continue-btn">Continue</button>
 
-    <script>
-        const progressBar = document.getElementById('progress');
-        const progressMessage = document.getElementById('progress-message');
-        const continueBtn = document.getElementById('continue-btn');
-        const video = document.getElementById('placeholder-video');
-        let progress = 0;
+     <section id="Clicker">
+        <iframe src="../Clicker/index.html" width="400" height="400" frameborder="0"></iframe>
+     </section>
 
-        const messages = [
-            "Taking Quackers out on a walk...",
-            "Optimizing rubber ducks...",
-            "Counting pixels...",
-            "Stealing hackathon food...",
-            "Playing geoguesser...",
-            "Preparing something amazing!",
-            "Ready to quack!"
-        ];
+     <section id="ScissorsPaperStone">
+        <iframe src="../ScissorsPaperStone/index.html" width="400" height="400" frameborder="0"></iframe>
+     </section>
 
-        function updateProgress() {
-            progress += 0.5;
-            if (progress > 100) progress = 0;
-            progressBar.style.width = progress + '%';
+     <section id="MemoryGame">
+        <iframe src="../MemoryGame/index.html" width="400" height="400" frameborder="0"></iframe>
+     </section>
 
-            // Update progress message every 20%
-            const messageIndex = Math.floor((progress / 20) % messages.length);
-            progressMessage.innerText = messages[messageIndex];
-        }
+     <section id="TicTacToe">
+        <iframe src="../TicTacToe/index.html" width="400" height="600" frameborder="0"></iframe>
+     </section>
+     <section id="flappybird">
+        <iframe src="../flappybird/index.html" width="500" height="800" frameborder="0"></iframe>
+     </section>
 
-        setInterval(updateProgress, 100);
-
-        setTimeout(() => {
-            continueBtn.style.display = 'block';
-            continueBtn.style.left = '50%';
-            continueBtn.style.top = 'calc(100% - 100px)';
-            continueBtn.style.transform = 'translateX(-50%)';
-        }, 19000);
-
-        const videos = ['video1.mp4', 'video2.mp4'];
-        let currentVideoIndex = 0;
-
-        continueBtn.addEventListener('click', () => {
-            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-            video.src = `videos/${videos[currentVideoIndex]}`;
-            moveButton();
-        });
-
-        function moveButton() {
-            const x = Math.random() * 80 + 10;
-            const y = Math.random() * 70 + 20;
-            continueBtn.style.left = x + '%';
-            continueBtn.style.top = y + '%';
-        }
-
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        let lastMousePosition = { x: 0, y: 0 };
-
-        const moveButtonDebounced = debounce((e) => {
-            if (continueBtn.style.display === 'block') {
-                const rect = continueBtn.getBoundingClientRect();
-                const buttonCenter = {
-                    x: rect.left + rect.width / 2,
-                    y: rect.top + rect.height / 2
-                };
-
-                if (Math.abs(e.clientX - lastMousePosition.x) > 5 || Math.abs(e.clientY - lastMousePosition.y) > 5) {
-                    const angle = Math.atan2(e.clientY - buttonCenter.y, e.clientX - buttonCenter.x);
-                    const distance = 300;
-                    let newX = buttonCenter.x - Math.cos(angle) * distance;
-                    let newY = buttonCenter.y - Math.sin(angle) * distance;
-
-                    const screenPadding = 20;
-                    const maxX = window.innerWidth - screenPadding;
-                    const maxY = window.innerHeight - screenPadding;
-
-                    newX = newX < screenPadding ? maxX : (newX > maxX ? screenPadding : newX);
-                    newY = newY < screenPadding ? maxY : (newY > maxY ? screenPadding : newY);
-
-                    continueBtn.style.left = newX + 'px';
-                    continueBtn.style.top = newY + 'px';
-
-                    lastMousePosition = { x: e.clientX, y: e.clientY };
-                }
-            }
-        }, 50);
-
-        document.addEventListener('mousemove', moveButtonDebounced);
-    </script>
+     
+ 
+   
+    <script src="script.js"></script>
 </body>
 </html>
