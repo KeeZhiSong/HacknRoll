@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background-color: white;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .cell:hover {
+            background-color: #e0e0e0;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+<div id="board"></div>
+<div id="status"></div>
+<button id="restart">Restart</button>
+<h2 id="result"></h2>
+<h3 id="winCounter">Wins: 0</h3>
+
+<script>
+    const board = document.getElementById('board');
+    const statusDisplay = document.getElementById('status');
+    const restartButton = document.getElementById('restart');
+    let consecutiveWins = 0; // Counter for consecutive wins
+    let gameActive = true;
+    let currentPlayer = 'X';
+    let gameState = ['', '', '', '', '', '', '', '', '', ''];
+
+    const winningConditions = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    function createBoard() {
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.setAttribute('data-cell-index', i);
+            cell.addEventListener('click', handleCellClick);
+            board.appendChild(cell);
+        }
+    }
+
+    function handleCellClick(event) {
+        const clickedCell = event.target;
+        const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+
+        if (gameState[clickedCellIndex] !== '' || !gameActive) {
+            return;
+        }
+
+        handlePlayerMove(clickedCell, clickedCellIndex);
+        if (gameActive) {
+            setTimeout(handleComputerMove, 1000);
+        }
+    }
+
+    function handlePlayerMove(clickedCell, clickedCellIndex) {
+        gameState[clickedCellIndex] = currentPlayer;
+        clickedCell.innerHTML = currentPlayer;
+        checkResult();
+    }
+
+    function minimax(board, depth, isMaximizing) {
+        const scores = {
+            'X': -10,
+            'O': 10,
+            'draw': 0
+        };
+
+        let result = checkWinner(board);
+        if (result !== null) {
+            return scores[result];
+        }
+
+        if (isMaximizing) {
+            let bestScore = -Infinity;
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] === '') {
+                    board[i] = 'O'; // AI's move
+                    let score = minimax(board, depth + 1, false);
+                    board[i] = ''; // Undo move
+                    bestScore = Math.max(score, bestScore);
+                }
+            }
+            return bestScore;
+        } else {
+            let bestScore = Infinity;
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] === '') {
+                    board[i] = 'X'; // Player's move
+                    let score = minimax(board, depth + 1, true);
+                    board[i] = ''; // Undo move
+                    bestScore = Math.min(score, bestScore);
+                }
+            }
+            return bestScore;
+        }
+    }
+
+    function checkWinner(board) {
+        const winningConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        for (let condition of winningConditions) {
+            const [a, b, c] = condition;
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                return board[a]; // Return 'X' or 'O'
+            }
+        }
+
+        return board.includes('') ? null : statusDisplay.innerHTML = 'You ended the game in a draw!'; // Return null if no winner yet
+    }
+
+    function handleComputerMove() {
+        // Check for winning move
+        for (let i = 0; i < gameState.length; i++) {
+            if (gameState[i] === '') {
+                gameState[i] = 'O'; // AI's move
+                if (checkWinner(gameState) === 'O') {
+                    const computerCell = document.querySelector(`[data-cell-index='${i}']`);
+                    computerCell.innerHTML = 'O';
+                    checkResult();
+                    return;
+                }
+                gameState[i] = ''; // Undo move
+            }
+        }
+
+        // Check for blocking move
+        for (let i = 0; i < gameState.length; i++) {
+            if (gameState[i] === '') {
+                gameState[i] = 'X'; // Assume player's move
+                if (checkWinner(gameState) === 'X') {
+                    gameState[i] = 'O'; // Block player's move
+                    const computerCell = document.querySelector(`[data-cell-index='${i}']`);
+                    computerCell.innerHTML = 'O';
+                    checkResult();
+                    return;
+                }
+                gameState[i] = ''; // Undo move
+            }
+        }
+
+        // Make a random move
+        let availableCells = gameState.map((cell, index) => cell === '' ? index : null).filter(cell => cell !== null);
+        if (availableCells.length > 0) {
+            const randomIndex = Math.floor(Math.random() * availableCells.length);
+            const computerMoveIndex = availableCells[randomIndex];
+            const computerCell = document.querySelector(`[data-cell-index='${computerMoveIndex}']`);
+            gameState[computerMoveIndex] = 'O';
+            computerCell.innerHTML = 'O';
+            checkResult();
+        }
+    }
+
+    function checkResult() {
+        let roundWon = false;
+        for (let i = 0; i < winningConditions.length; i++) {
+            const [a, b, c] = winningConditions[i];
+            if (gameState[a] === '' || gameState[b] === '' || gameState[c] === '') {
+                continue;
+            }
+            if (gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+                roundWon = true;
+                break;
+            }
+        }
+
+        if (roundWon) {
+            statusDisplay.innerHTML = `Player ${currentPlayer} has won!`;
+            gameActive = false;
+
+            if (currentPlayer === 'X') {
+                consecutiveWins++; // Increment consecutive wins
+            } else {
+                consecutiveWins = 0; // Reset consecutive wins
+            }
+
+            document.getElementById('winCounter').innerText = "Wins: " + consecutiveWins;
+
+            // Check if the user has won 3 times in a row
+            if (consecutiveWins === 3) {
+                document.getElementById('result').innerText = "You win the game! 🎉";
+                consecutiveWins = 0; // Reset counter after winning the game
+            }
+            return;
+        }
+
+        // Switch players
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    }
+
+    restartButton.addEventListener('click', restartGame);
+
+    function restartGame() {
+        gameActive = true;
+        currentPlayer = 'X';
+        gameState = ['', '', '', '', '', '', '', '', '', ''];
+        statusDisplay.innerHTML = '';
+        document.querySelectorAll('.cell').forEach(cell => cell.innerHTML = '');
+    }
+
+    createBoard();
+</script>
+
+</body>
+</html>
