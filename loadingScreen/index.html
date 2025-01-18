@@ -13,14 +13,23 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(to right, #e0f2fe, #e0e7ff);
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/360_F_885994379_5kHw8aYvxSORQZsYtmFpIn20IguRMnEh.jpg-dYh5c8Uf5B3E7yxcuq3wNPnGwh8zRU.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             overflow: hidden;
         }
         .container {
             text-align: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         .loader {
-            border: 5px solid #f3f3f3;
+            border: 5px solid rgba(255, 255, 255, 0.3);
             border-top: 5px solid #3498db;
             border-radius: 50%;
             width: 50px;
@@ -35,7 +44,7 @@
         .progress-bar {
             width: 300px;
             height: 10px;
-            background-color: #f3f3f3;
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
             margin: 20px auto;
             overflow: hidden;
@@ -46,19 +55,26 @@
             background-color: #3498db;
             transition: width 0.5s ease-out;
         }
+        #progress-message {
+            margin-top: 10px;
+            color: white;
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
         #continue-btn {
             position: absolute;
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.8);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease-out;
             display: none;
+            backdrop-filter: blur(4px);
         }
         #continue-btn:hover {
-            background-color: #45a049;
+            background-color: rgba(69, 160, 73, 0.9);
         }
         #video-container {
             margin-top: 20px;
@@ -68,6 +84,10 @@
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1, p {
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -79,6 +99,7 @@
         <div class="progress-bar">
             <div class="progress" id="progress"></div>
         </div>
+        <p id="progress-message">Starting...</p>
         <div id="video-container">
             <video id="placeholder-video" width="320" height="180" autoplay muted loop style="max-width: 100%;">
                 <source src="videos/video1.mp4" type="video/mp4">
@@ -90,14 +111,29 @@
 
     <script>
         const progressBar = document.getElementById('progress');
+        const progressMessage = document.getElementById('progress-message');
         const continueBtn = document.getElementById('continue-btn');
         const video = document.getElementById('placeholder-video');
         let progress = 0;
+
+        const messages = [
+            "Taking Quackers out on a walk...",
+            "Optimizing rubber ducks...",
+            "Counting pixels...",
+            "Stealing hackathon food...",
+            "Playing geoguesser...",
+            "Preparing something amazing!",
+            "Ready to quack!"
+        ];
 
         function updateProgress() {
             progress += 0.5;
             if (progress > 100) progress = 0;
             progressBar.style.width = progress + '%';
+
+            // Update progress message every 20%
+            const messageIndex = Math.floor((progress / 20) % messages.length);
+            progressMessage.innerText = messages[messageIndex];
         }
 
         setInterval(updateProgress, 100);
@@ -109,7 +145,7 @@
             continueBtn.style.transform = 'translateX(-50%)';
         }, 19000);
 
-        const videos = ['video1.mp4', 'video2.mp4', 'video3.mp4'];
+        const videos = ['video1.mp4', 'video2.mp4'];
         let currentVideoIndex = 0;
 
         continueBtn.addEventListener('click', () => {
@@ -147,7 +183,6 @@
                     y: rect.top + rect.height / 2
                 };
 
-                // Only move if the mouse has moved significantly
                 if (Math.abs(e.clientX - lastMousePosition.x) > 5 || Math.abs(e.clientY - lastMousePosition.y) > 5) {
                     const angle = Math.atan2(e.clientY - buttonCenter.y, e.clientX - buttonCenter.x);
                     const distance = 300;
@@ -167,10 +202,9 @@
                     lastMousePosition = { x: e.clientX, y: e.clientY };
                 }
             }
-        }, 50); // Debounce for 50ms
+        }, 50);
 
         document.addEventListener('mousemove', moveButtonDebounced);
     </script>
 </body>
 </html>
-
