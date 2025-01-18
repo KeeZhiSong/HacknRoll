@@ -125,19 +125,19 @@ body {
   }
   
   #MemoryGame {
-    bottom: 0;
+    bottom: -50px;
     right: 25px;
     transform: scale(0.8);
   }
   
   #TicTacToe {
-    bottom: 20px;
+    bottom: -70px;
     left: 100px;
     transform: scale(0.6);
   }
   
   #flappybird {
-    top: -90px;
+    top: -150px;
     right: 150px;
     transform: scale(0.6);
   }

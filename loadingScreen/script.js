@@ -119,7 +119,7 @@ function showGames() {
             if (index === games.length - 1) {
                 setTimeout(triggerConfetti, 1000); // Wait 1 second after the last game appears
             }
-        }, index * 10000); // 10 seconds interval between each game
+        }, index * 4000); // 4 seconds interval between each game
     });
 }
 
@@ -131,8 +131,8 @@ function triggerConfetti() {
     });
 }
 
-// Start showing games after 10 seconds
-setTimeout(showGames, 10000);
+// Start showing games after 3 seconds
+setTimeout(showGames, 3000);
 
 // Background music controls
 let isMusicPlaying = false;
