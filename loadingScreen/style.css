@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/360_F_885994379_5kHw8aYvxSORQZsYtmFpIn20IguRMnEh.jpg-dYh5c8Uf5B3E7yxcuq3wNPnGwh8zRU.jpeg');
+    background-image: url(background/sky.jpeg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

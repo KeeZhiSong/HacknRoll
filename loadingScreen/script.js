@@ -93,3 +93,22 @@ const progressBar = document.getElementById('progress');
         }, 50);
 
         document.addEventListener('mousemove', moveButtonDebounced);
+
+        // Set the countdown time in seconds
+        let countdownTime = 20; // 3 minutes
+
+        const countdownInterval = setInterval(() => {
+            // Calculate minutes and seconds
+            const minutes = Math.floor(countdownTime / 60);
+            const seconds = countdownTime % 60;
+
+            // Decrease the countdown time
+            countdownTime--;
+
+            // Check if the countdown has finished
+            if (countdownTime < 0) {
+                clearInterval(countdownInterval);
+                // Redirect to the specified URL
+                window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Change this to your desired URL
+            }
+        }, 1000);
