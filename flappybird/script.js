@@ -62,6 +62,9 @@ window.onload = function() {
     document.addEventListener("keydown", moveBird);
     document.addEventListener("mousedown", moveBird);
     document.getElementById("startButton").addEventListener("click", startGame);
+    
+    // Ensure the start button is visible
+    document.getElementById("startButton").style.display = "block";
 }
 
 function startGame() {
