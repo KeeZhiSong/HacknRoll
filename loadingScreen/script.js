@@ -137,11 +137,10 @@ function showGames() {
 function showSmile() {
     const smileElement = document.getElementById('smile');
     
-    // Add the 'visible' class after a delay
     setTimeout(() => {
         smileElement.classList.remove('hidden');
         smileElement.classList.add('visible');
-    }, 3000); // Delay of 5000ms (5 seconds)
+    }, 170000); 
 }
 
 showSmile();
@@ -155,7 +154,6 @@ function triggerConfetti() {
 }
 
 setTimeout(showGames, 3000);
-setTimeout(showPhoto, 170000);
 
 let isMusicPlaying = false;
 
