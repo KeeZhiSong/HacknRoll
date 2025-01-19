@@ -21,7 +21,7 @@ async function setupWebcam() {
       // Take a photo after 1 second
       setTimeout(() => {
         capturePhoto(video);
-      }, 2000);
+      }, 5000);
     };
   } catch (error) {
     console.error("Error accessing webcam:", error);

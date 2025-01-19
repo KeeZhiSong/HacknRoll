@@ -143,6 +143,11 @@ body {
     right: 150px;
     transform: scale(0.6);
   }
+
+  #smile {
+    top: 0;
+    right: 0;
+  }
   
   #progress-message {
     margin-top: 10px;
