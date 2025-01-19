@@ -1,43 +1,18 @@
 body {
     font-family: Arial, sans-serif;
+    text-align: center;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     background-color: #f0f0f0;
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;    /* Center vertically */
-    height: 100vh;          /* Full viewport height */
   }
   
-  #container {
-    position: relative;
-    display: inline-block;
-  }
-  
-  #video, #canvas {
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    max-width: 100%;
-    height: auto;
-  }
   
   #canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: none; /* Initially hidden */
-  }
-  
-  #overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Center the text within the container */
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    z-index: 2; /* Ensure the text is above the video feed */
-    pointer-events: none; /* Allow clicks to pass through the text */
+    display: block;
+    margin: 20px auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    width: 640px;
+    height: 480px;
   }
   

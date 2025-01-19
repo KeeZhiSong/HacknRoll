@@ -1,53 +1,65 @@
-const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
-const overlayText = document.getElementById('overlay-text');
 const ctx = canvas.getContext('2d');
-let stream;
+let stream; // To store the webcam stream
 
-// Set up webcam
+// Set up the webcam
 async function setupWebcam() {
   try {
-    // Start the webcam
     stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    const video = document.createElement('video'); // Hidden video element
     video.srcObject = stream;
+    video.play();
 
+    // Set canvas size to match video feed
     video.onloadedmetadata = () => {
-      video.play();
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
 
+      // Continuously draw the video feed on the canvas
+      drawVideoWithText(video, "Smile!");
+
       // Take a photo after 1 second
-      setTimeout(capturePhoto, 3000);
+      setTimeout(() => {
+        capturePhoto(video);
+      }, 2000);
     };
-  } catch (err) {
-    console.error("Error accessing webcam: ", err);
+  } catch (error) {
+    console.error("Error accessing webcam:", error);
     alert("Webcam access is required to run this app.");
   }
 }
 
-// Capture photo and replace the webcam feed
-function capturePhoto() {
-  // Draw the current frame from the video to the canvas
+// Draw video feed and overlay text
+function drawVideoWithText(video, text) {
+  const drawInterval = setInterval(() => {
+    // Draw the video feed
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Draw the overlay text
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+  }, 30); // Update every 30ms for smooth rendering
+
+  // Stop drawing text after 1 second
+  setTimeout(() => {
+    clearInterval(drawInterval);
+  }, 1000);
+}
+
+// Capture the photo and replace the webcam feed
+function capturePhoto(video) {
+  // Draw the final video frame on the canvas
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
   // Stop the webcam stream
-  stopWebcam();
+  const tracks = stream.getTracks();
+  tracks.forEach((track) => track.stop());
 
-  // Hide the video feed and overlay text
-  video.style.display = "none";
-  overlayText.style.display = "none";
-
-  // Show the captured photo
-  canvas.style.display = "block";
+  // The canvas now contains the captured photo
+  console.log("Photo captured!");
 }
 
-// Turn off the webcam
-function stopWebcam() {
-  if (stream) {
-    stream.getTracks().forEach((track) => track.stop()); // Stop all video tracks
-    console.log("Webcam turned off.");
-  }
-}
-
-// Start the webcam feed
+// Start the app
 setupWebcam();
