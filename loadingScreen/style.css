@@ -1,10 +1,17 @@
-body {
-    font-family: Arial, sans-serif;
+/* Base styles */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: rgba(76, 175, 80, 0.8);
+  }
+  
+  * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
     min-height: 100vh;
     background-image: url(background/sky.jpeg);
     background-size: cover;
@@ -16,10 +23,16 @@ body {
   }
   
   .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -28,7 +41,7 @@ body {
   
   .loader {
     border: 5px solid rgba(255, 255, 255, 0.3);
-    border-top: 5px solid #3498db;
+    border-top: 5px solid var(--primary-color);
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -46,7 +59,7 @@ body {
   }
   
   .progress-bar {
-    width: 300px;
+    width: 100%;
     height: 10px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 5px;
@@ -57,14 +70,14 @@ body {
   .progress {
     width: 0%;
     height: 100%;
-    background-color: #3498db;
+    background-color: var(--primary-color);
     transition: width 0.5s ease-out;
   }
   
   #continue-btn {
     position: fixed;
     padding: 10px 20px;
-    background-color: rgba(76, 175, 80, 0.8);
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -81,6 +94,7 @@ body {
   
   #video-container {
     margin-top: 20px;
+    width: 100%;
   }
   
   video {
@@ -110,38 +124,33 @@ body {
   }
   
   #Clicker {
-    top: -25px;
-    left: -20px;
-    transform: scale(0.5);
+    top: 2vh;
+    left: 2vw;
+    transform: scale(0.4);
   }
   
   #ScissorsPaperStone {
-    position: fixed;
-    top: 120px;
-    right: 0;
-    transform: scale(0.5) translateX(60px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    z-index: 2;
-    transition: opacity 0.5s ease-in-out;
+    top: 1vh;
+    right: 0.1vw; 
+    transform: scale(0.5);
   }
   
   #MemoryGame {
-    bottom: 0;
-    right: 25px;
-    transform: scale(0.8);
+    bottom: 2vh;
+    right: 2vw;
+    transform: scale(0.7);
   }
   
   #TicTacToe {
-    bottom: 20px;
-    left: 100px;
-    transform: scale(0.6);
+    bottom: 2vh;
+    left: 2vw;
+    transform: scale(0.5);
   }
   
   #flappybird {
-    top: -90px;
-    right: 150px;
-    transform: scale(0.6);
+    top: 40%;
+    right: 10vw; 
+    transform: translateY(-60%) scale(0.4);
   }
   
   #progress-message {
@@ -149,19 +158,6 @@ body {
     color: white;
     font-style: italic;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  body,
-  button,
-  .game {
-    cursor: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/script-QtDoUVEPtzqOuGDBJoqqYfELCrDXA8.js"), auto;
-  }
-  
-  .container,
-  button,
-  .game,
-  #music-toggle {
-    cursor: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/script-QtDoUVEPtzqOuGDBJoqqYfELCrDXA8.js"), auto;
   }
   
   .controls {
@@ -175,7 +171,7 @@ body {
   
   .control-btn {
     padding: 8px 16px;
-    background-color: rgba(76, 175, 80, 0.8);
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -186,6 +182,37 @@ body {
   
   .control-btn:hover {
     background-color: rgba(69, 160, 73, 0.9);
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+      padding: 1rem;
+    }
+  
+    #Clicker, #ScissorsPaperStone, #MemoryGame, #TicTacToe {
+      transform: scale(0.3);
+    }
+  
+    #flappybird {
+      transform: translateY(-50%) scale(0.3);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      width: 95%;
+      padding: 0.5rem;
+    }
+  
+    #Clicker, #ScissorsPaperStone, #MemoryGame, #TicTacToe {
+      transform: scale(0.25);
+    }
+  
+    #flappybird {
+      transform: translateY(-50%) scale(0.25);
+    }
   }
   
   
