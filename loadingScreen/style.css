@@ -11,6 +11,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
+    transition: background-image 1s ease-in-out;
+    cursor: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/script-QtDoUVEPtzqOuGDBJoqqYfELCrDXA8.js"), auto;
   }
   
   .container {
@@ -125,19 +127,19 @@ body {
   }
   
   #MemoryGame {
-    bottom: -50px;
+    bottom: 0;
     right: 25px;
     transform: scale(0.8);
   }
   
   #TicTacToe {
-    bottom: -70px;
+    bottom: 20px;
     left: 100px;
     transform: scale(0.6);
   }
   
   #flappybird {
-    top: -150px;
+    top: -90px;
     right: 150px;
     transform: scale(0.6);
   }
@@ -147,6 +149,43 @@ body {
     color: white;
     font-style: italic;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  body,
+  button,
+  .game {
+    cursor: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/script-QtDoUVEPtzqOuGDBJoqqYfELCrDXA8.js"), auto;
+  }
+  
+  .container,
+  button,
+  .game,
+  #music-toggle {
+    cursor: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/script-QtDoUVEPtzqOuGDBJoqqYfELCrDXA8.js"), auto;
+  }
+  
+  .controls {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+  }
+  
+  .control-btn {
+    padding: 8px 16px;
+    background-color: rgba(76, 175, 80, 0.8);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background-color 0.3s ease;
+  }
+  
+  .control-btn:hover {
+    background-color: rgba(69, 160, 73, 0.9);
   }
   
   
